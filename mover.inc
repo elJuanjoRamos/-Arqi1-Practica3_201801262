@@ -3,7 +3,8 @@ moverFichaBlanco macro turno
 		CMP comando[2],','
 		JE ORIGEN
 		JMP EXIT
-
+		xor di,di
+		xor si,si
 		ORIGEN:
 			moveOrigen
             moveBlanca
@@ -115,15 +116,6 @@ moveNegro macro
 				JMP EXIT
 			EXIT:
 endm
-
-
-
-
-
-
-
-
-
 
 
 

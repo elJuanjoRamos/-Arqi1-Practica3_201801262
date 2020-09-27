@@ -8,7 +8,6 @@ xor si,si
 CONT:
     cmp si,8
     je FIN
-
     cmp buffer[si], 101b
     je FN
     cmp buffer[si], 100b

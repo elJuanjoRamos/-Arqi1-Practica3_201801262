@@ -214,26 +214,6 @@ endm
 
 ;endm
 
-convertirAscii macro numero
-    LOCAL INICIO, FIN
-    XOR AX,AX
-    XOR BX,BX
-    XOR CX,CX
-    MOV BX,10
-    XOR SI,SI
-    INICIO:
-        MOV CL, numero[SI]
-        CMP CL, 48
-        JL FIN
-        CMP CL,57
-        JG FIN
-        INC SI
-        SUB CL,48 ;RESTAR 48
-        MUL BX      ; MULTIPLICAR AX POR 10
-        ADD AX,CX   ; SUMAR LO QUE TENGO MAS EL SIGUIENTE
-        JMP INICIO
-    FIN:
-endm
 
 ;========== END MACRO FECHA HORA
 
@@ -325,15 +305,7 @@ msj6 db 0ah,0dh, 'IGUALES', '$'
 msj7 db 0ah,0dh, 'LLEGO A SHOW', '$'
 
 ;========== VARIABLES TABLERO
-turn    db 0b
-row     db 0b
-col     db 0b
-rowF    db 0b
-colF    db 0b
-dist    db 0b
-tipe    db 0b
-actual  db 0b
-comer   db 0b
+
 
 row8    db 101b,000b,101b,000b,101b,000b,101b,000b
 row7    db 000b,101b,000b,101b,000b,101b,000b,101b
@@ -388,7 +360,7 @@ main proc
     cmp al,'2'
     je OPENGAME
     cmp al,'3'
-    je EXIT
+    je ENDGAME
     jmp MENUPRINCIPAL
 
 
@@ -497,12 +469,8 @@ SHOW:
     whritehtml SIZEOF slash2, slash2, handlefile
     whritehtml SIZEOF minuto, minuto, handlefile
     
-    
-   
-
     whritehtml SIZEOF cerrarfecha, cerrarfecha, handlefile
-
-
+    
     htmltablero row8, handlefile 
     htmltablero row7, handlefile 
     htmltablero row6, handlefile 
@@ -559,11 +527,14 @@ ErrorEscribir:
 	getChar
 	jmp MENUPRINCIPAL
 
-EXIT:
-        print final
-        mov ah,4ch
-        int 21h
 
+EXIT:        
+    jmp MENUPRINCIPAL
+
+ENDGAME:
+    print final
+    mov ah,4ch
+    int 21h
 
 main endp
 

@@ -76,6 +76,10 @@ PrintRBlanca macro jumper
     jmp jumper
 endm
 
+
+
+
+
 txttablero macro buffer, handle
 LOCAL CONT, FIN,FN, FB, RN, RB, S
 PUSH SI
@@ -95,8 +99,6 @@ CONT:
     cmp buffer[si], 110b
     je RB
     jmp S
-
-
     FN:
         writeFile SIZEOF txtfneg, txtfneg, handle
         inc si
